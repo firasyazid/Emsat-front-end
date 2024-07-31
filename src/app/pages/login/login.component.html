@@ -1,0 +1,53 @@
+<div class="authincation h-100">
+    <div class="container vh-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a [routerLink]="['/page-login']"> </a>
+                                </div>
+                                <h4 class="text-center mb-4">Connectez-vous à votre compte</h4>
+                                <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>Email</strong></label>
+                                        <input type="email" class="form-control" formControlName="email" 
+                                        
+                                            placeholder="Email address"
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>Mot de passe</strong></label>
+                                        <input type="password" class="form-control" formControlName="password" 
+                                        placeholder="Password"
+                                        >
+                                    </div>
+                                    <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox ml-1">
+                                                <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                                                <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <a [routerLink]="['/page-forgot-password']">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                                    </div>
+                                </form>
+                                
+                                <div class="p-col-12" *ngIf="isSubmitted && authError">
+                                    <small class="p-error"> {{ authMessage }}</small>
+                                   </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

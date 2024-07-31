@@ -1,0 +1,235 @@
+<div class="content-body">
+	<!-- row -->
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-xl-12">
+		  <div class="d-flex flex-wrap mb-3">
+			<a href="javascript:void(0);" data-toggle="modal"  
+                (click)="open(addArticleModal)"
+             class="btn btn-outline-primary mr-auto mb-2">Add New Article</a>
+
+  
+<!-- Add art Modal -->
+ 
+<ng-template #addArticleModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Article</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="addArticle(
+            newArticle,
+            newArticle.category,
+            newArticle.image,
+            newArticle.image1  || '',
+            newArticle.image2 || '',
+            newArticle.image3 || '',
+            newArticle.video || '')">
+
+            <div class="form-group">
+          <label class="text-black font-w500">Title</label>
+          <input type="text" class="form-control" [(ngModel)]="newArticle.title" name="title">
+        </div>
+        <div class="form-group">
+          <label class="text-black font-w500">Description</label>
+          <input type="text" class="form-control" [(ngModel)]="newArticle.description" name="description">
+		         </div>
+
+		 
+        <div class="form-group">
+          <label class="text-black font-w500">Contenu</label>
+          <textarea class="form-control" [(ngModel)]="newArticle.contenu" name="contenu"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label class="text-black font-w500">Source</label>
+          <input type="text" class="form-control" [(ngModel)]="newArticle.source" name="source">
+        </div>
+
+
+        <div class="form-group">
+          <label class="text-black font-w500">Category</label>
+          <p-dropdown [options]="CategotyOptions" [(ngModel)]="newArticle.category" optionLabel="Categoryname"
+          placeholder="Select category" [style]="{width: '100%'}" name="category" [ngModelOptions]="{standalone: true}"
+          (onChange)="onCategoryChange($event)" 
+          
+          >
+        </p-dropdown>       
+       </div>
+        <div class="form-group">
+            <label class="text-black font-w500">Image</label>
+           </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary btn-sm" type="button">Upload</button>
+            </div>
+            
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onImageUpload($event)">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="text-black font-w500">Image1</label>
+           </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary btn-sm" type="button">Upload</button>
+            </div>
+            
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onImageUpload1($event)">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <label class="text-black font-w500">Image2</label>
+           </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary btn-sm" type="button">Upload</button>
+            </div>
+            
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onImageUpload2($event)">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-black font-w500">Image3</label>
+           </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary btn-sm" type="button">Upload</button>
+            </div>
+            
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onImageUpload3($event)">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-black font-w500">Video</label>
+           </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary btn-sm" type="button">Upload</button>
+            </div>
+            
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onImageUpload4($event)">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  
+ 
+ 		 
+		  </div>
+		  <!-- Pharmacy Table -->
+		  <div class="table-responsive">
+			<table id="dataTable1" class="display table text-black dataTablesCard customer-list-tbl card-table mb-4 table-responsive-lg ">
+			  <thead>
+				<tr class="bg-primary">
+				  <th class="sorting_1  pr-0 text-center bg-none no-data-img ">
+					<div class="custom-control custom-checkbox ml-2">
+					  <input type="checkbox" class="custom-control-input" id="checkAll"  >
+					  <label class="custom-control-label" for="checkAll"></label>
+					</div>
+				  </th>
+				  <th><strong class="font-w600 wspace-no">Title</strong></th>
+				  <th><strong class="font-w600 wspace-no">Description</strong></th>
+				  <th><strong class="font-w600 wspace-no">contenu</strong></th>
+
+
+				  <th><strong class="font-w600 wspace-no">Category</strong></th>
+				  <th><strong class="font-w600 wspace-no">Source</strong></th>
+				  <th><strong class="font-w600 wspace-no">Image</strong></th>
+                  <th><strong class="font-w600 wspace-no">Image1</strong></th>
+                  <th><strong class="font-w600 wspace-no">Image2</strong></th>
+                  <th><strong class="font-w600 wspace-no">Image3</strong></th>
+                    <th><strong class="font-w600 wspace-no">Video</strong></th>
+
+
+				  <th class="bg-none"></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let user of articles; let i = index">
+				  <td class="sorting_1 pr-0 text-center">
+					<div class="custom-control custom-checkbox ml-2">
+ 					  <label class="custom-control-label" for="customCheckBox_{{i}}"></label>
+					</div>
+				  </td>
+				  <td>{{user.title}}</td>
+                                                            <td>{{user.description}}</td>
+                                                            <td>{{user.contenu}}</td>
+                                                            <td>{{user.categoryName}}</td>
+                                                            <td>{{user.source}}</td>
+                                                            <td><img src="{{user.image}}" alt="user" class="rounded-circle" width="35"></td>
+                                                            <td><img src="{{user.image1}}" alt="user" class="rounded-circle" width="35"></td>
+                                                            <td><img src="{{user.image2}}" alt="user" class="rounded-circle" width="35"></td>
+                                                            <td><img src="{{user.image3}}" alt="user" class="rounded-circle" width="35"></td>
+                                                            <video controls width="320" height="240">
+                                                                <source [src]="user.video" type="video/mp4">
+                                                                Your browser does not support the video tag.
+                                                              </video>
+                                                              
+
+
+ 				  <td>
+					<div class="dropdown ml-auto dropdown-no-icon" ngbDropdown display="dynamic">
+					  <div class="btn-link" data-toggle="dropdown" aria-expanded="false" role="button" ngbDropdownToggle>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						  <path d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						  <path d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						  <path d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					  </div>
+					  <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+						<a class="dropdown-item text-black" href="#">
+						  Edit
+						</a>
+						<a class="dropdown-item text-black" 
+                             (click)="deleteArt(user._id)"
+ 						>
+						  Delete
+						</a>
+						 
+					  </div>
+					</div>
+				  </td>
+				</tr>
+			  </tbody>
+			</table>
+			<!-- Pagination -->
+		 
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+  

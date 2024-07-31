@@ -1,0 +1,72 @@
+<div class="content-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card bg-transparent shadow-none">
+            <div class="card-header flex-wrap border-0 p-0 justify-content-start">
+              <div class="table-tabs mr-2 mb-3 mr-auto">
+                <ul class="nav nav-tabs" ngbNav #nav="ngbNav" role="tablist">
+                  <li class="nav-item" ngbNavItem="AllStatus">
+                    <a class="nav-link" data-toggle="tab" href="#AllStatus" aria-expanded="false" ngbNavLink>
+                      All Sections
+                    </a>
+                    <ng-template ngbNavContent>
+                      <div class="tab-pane fade active show" id="AllStatus">
+                        <div class="table-responsive rounded table-hover">
+                          <table class="table text-black card-table dataTable mb-4 table-responsive-lg dataTablesCard" id="dataTable1">
+                            <thead class="bg-primary">
+                              <tr>
+                                <th>Section name</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="background-image:none;"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let category of test?.categories" class="alert alert-dismissible border-0">
+
+                                <td>
+                                  <a 
+                                  style="cursor: pointer;"
+
+                                  (click)="navigateToCategories(category._id || '')"  >
+                                    {{ getDisplayName(category.name) }}
+                                  </a>
+                                  </td>
+                      
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  <div class="dropdown dropdown-no-icon" ngbDropdown>
+                                    <a class="btn-link" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                          <rect x="0" y="0" width="24" height="24"></rect>
+                                          <circle fill="#000000" cx="12" cy="5" r="2"></circle>
+                                          <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                          <circle fill="#000000" cx="12" cy="19" r="2"></circle>
+                                        </g>
+                                      </svg>
+                                    </a>
+                                  
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div [ngbNavOutlet]="nav" class=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,59 @@
+<div class="deznav">
+    <div class="deznav-scroll" [perfectScrollbar]>
+        <ul class="metismenu" id="menu" metis-menu>
+            <li [ngClass]="{'mm-active': dashboardArray.indexOf(currentHref) > -1}">
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i [routerLink]="['/admin/orders-list']" class="flaticon-381-user-7
+                    "></i>
+                    <span class="nav-text"  [routerLink]="['/admin/orders-list']" >Users </span>
+                </a>
+               
+            </li>
+            <li [ngClass]="{'mm-active': apsArray.indexOf(currentHref) > -1}">
+                <a  class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i   [routerLink]="['/admin/order-detail']" class="flaticon-041-graph"></i>
+                    <span class="nav-text" [routerLink]="['/admin/order-detail']" >Tests</span>
+                </a>
+  
+            </li>
+            <li [ngClass]="{'mm-active': chartsArray.indexOf(currentHref) > -1}">
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false" 
+                [routerLink]="['/admin/customer-list']"
+                >
+                    <i class="flaticon-084-share" 
+                    [routerLink]="['/admin/customer-list']"
+
+                    ></i>
+                    <span class="nav-text" 
+                    [routerLink]="['/admin/customer-list']"
+                    >Sections </span>
+                </a>
+              
+            </li>
+            
+            <li [ngClass]="{'mm-active': apsArray.indexOf(currentHref) > -1}">
+                <a 
+                [routerLink]="['/admin/email-compose']"
+                class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-file-1
+                    "></i>
+                    <span
+                    [routerLink]="['/admin/email-compose']"
+
+                    class="nav-text">Email</span>
+                </a>
+               
+            </li>
+
+            </ul>
+
+    
+
+
+        <div class="copyright" 
+         >
+            <p><strong>  EMSAT  Dashboard</strong> © 2024 All Rights Reserved</p>
+            <p class="fs-12" >Made with <span  [ngClass]="{'': toggleIcon, 'heart-blast': !toggleIcon}" class="heart" (click)="toggleLoveIcon()"></span>  </p>
+        </div>
+    </div>
+</div>

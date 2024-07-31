@@ -1,0 +1,84 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles mx-0">
+      <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+          <h4>Editing a Multiple Choice Question!</h4>
+        </div>
+      </div>
+      <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb"></ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-4 col-md-5 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3"></h4>
+              </div>
+              <div class="col-lg-8 col-md-7 order-md-1">
+                <form [formGroup]="questionForm" class="needs-validation" novalidate (ngSubmit)="updateQuestion()">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="name" style="color: black; font-weight: bold;">Question name</label>
+                      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter question name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="text" style="color: black; font-weight: bold;">Question text</label>
+                      <textarea id="text" class="form-control" formControlName="text" rows="5" placeholder="Enter question text" required></textarea>
+                    </div>
+                  </div>
+                  <hr class="mb-4">
+                  <h4 class="mb-3">Answers</h4>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="choice1" style="color: black; font-weight: bold;">Choice 1</label>
+                      <textarea id="choice1" class="form-control" formControlName="choice1" rows="2" placeholder="Enter the first choice"></textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="choice2" style="color: black; font-weight: bold;">Choice 2</label>
+                      <textarea id="choice2" class="form-control" formControlName="choice2" rows="2" placeholder="Enter the second choice"></textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="choice3" style="color: black; font-weight: bold;">Choice 3</label>
+                      <textarea id="choice3" class="form-control" formControlName="choice3" rows="2" placeholder="Enter the third choice"></textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="choice4" style="color: black; font-weight: bold;">Choice 4</label>
+                      <textarea id="choice4" class="form-control" formControlName="choice4" rows="2" placeholder="Enter the fourth choice"></textarea>
+                    </div>
+                  </div>
+                  <hr class="mb-4">
+                  <h4 class="mb-3"> Current correct Answers</h4>
+
+                  <p>{{correctAnswerChoices }}</p>
+
+                   <div class="d-block my-3">
+                    <h4 class="mb-3">Change the correct answers ( Select 2 or more ) </h4>
+
+                     
+
+                    <div class="custom-control custom-checkbox mb-2" *ngFor="let choice of availableChoices; let i = index">
+                      <input type="checkbox" class="custom-control-input" [id]="'correctAnswer' + i" [checked]="correctAnswersFormArray.value.includes(choice)" (change)="onCorrectAnswerChange(choice, $event)">
+                      <label class="custom-control-label" [for]="'correctAnswer' + i">{{ 'Choice ' + (i + 1) }}</label>
+                    </div>
+                  </div>
+                  <hr class="mb-4">
+                  <h4 class="mb-3">Validation</h4>
+                  <div class="custom-control custom-checkbox mb-2">
+                    <input type="checkbox" class="custom-control-input" id="validation" formControlName="validation">
+                    <label class="custom-control-label" for="validation">Validate the question</label>
+                  </div>
+                  <hr class="mb-4">
+                  <button class="btn btn-primary btn-lg btn-block" type="submit">Save question</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

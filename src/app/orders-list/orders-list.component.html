@@ -1,0 +1,227 @@
+ 
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card bg-transparent shadow-none">
+          <div class="card-header flex-wrap border-0 p-0 justify-content-start">
+            <div class="table-tabs mr-2 mb-3 mr-auto">
+              <ul class="nav nav-tabs" ngbNav #nav="ngbNav" role="tablist">
+                <li class="nav-item" ngbNavItem="AllStatus">
+                                  <a class="nav-link" data-toggle="tab" href="#AllStatus" aria-expanded="false" ngbNavLink 
+                                     >
+                                        All Users	
+                                    </a>
+ 
+                                    <a 
+                                      style="margin: 2rem;"
+                                    class="nav-link" data-toggle="tab"   aria-expanded="false"   ngbNavLink
+                                    (click)="showDialog()" 
+
+                                    >
+                                        Add Users	
+                                    </a>
+                                    
+                                    <ng-template ngbNavContent>
+                                      <div class="tab-pane fade active show" id="AllStatus">
+                                        <div class="table-responsive rounded table-hover">
+                                          <table class="table text-black card-table dataTable mb-4 table-responsive-lg dataTablesCard" id="dataTable1">
+                                            <thead class="bg-primary">
+                                                                <tr>
+                                                  <th>Full name</th>
+                                                  <th>Email</th>
+                                                  <th>Role</th>
+                                                  <th>Expire date</th>
+                                                  <th style="background-image:none;"></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr class="alert alert-dismissible border-0" *ngFor="let user of users | paginate: { itemsPerPage: 8, currentPage: p }">
+                                                  <td>{{user.fullname}}</td>
+                                                  <td>{{user.email}}</td>
+                                                  <td>{{user.role}}</td>
+                                                  <td>{{ user.expiresAt | date:'yyyy-MM-dd' }}</td>
+                                                  <td>
+                                                    <div class="dropdown dropdown-no-icon" ngbDropdown>
+                                                      <a class="btn-link" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                            <circle fill="#000000" cx="12" cy="5" r="2"></circle>
+                                                            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                                            <circle fill="#000000" cx="12" cy="19" r="2"></circle>
+                                                          </g>
+                                                        </svg>                                                      </a>
+                                                      <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                                                         <a class="dropdown-item text-info" (click)="openEditDialog(user)" >Update user</a>
+                                                        <a href="javascript:void(0);" data-dismiss="alert" aria-label="Close" class="dropdown-item" (click)="deleteUserConfirmation(user.id || '')" style="color: red;">Delete user</a>
+                                                      </div>
+                                                    </div>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                          </div>
+                                          
+                                        </div>
+                                      </ng-template>
+                                      
+                                </li>
+
+
+                                <p-dialog header="Add New User" [(visible)]="displayDialog" 
+                                [style]="{width: '50%', height: '80%'}" 
+                                [responsive]="true" [modal]="isModal">
+                        <form (ngSubmit)="_addUser(newUser)">
+                          <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" class="form-control" id="fullname" name="fullname" [(ngModel)]="newUser.fullname" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="newUser.password" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" id="role" name="role" [(ngModel)]="newUser.role" required>
+                              <option [ngValue]="Role.SuperAdmin">Super Admin</option>
+                              <option [ngValue]="Role.Teacher">Teacher</option>
+                              <option [ngValue]="Role.Student">Student</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="expiresAt">Expires At</label>
+                            <input type="date" class="form-control" id="expiresAt" name="expiresAt" [(ngModel)]="newUser.expiresAt" [disabled]="newUser.role !== 'Student'" required>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Add User</button>
+                        </form>
+                      </p-dialog>
+                      
+
+                      <p-dialog header="Update User" [(visible)]="displayDialog2" [style]="{width: '50%', height: '80%'}" [responsive]="true" [modal]="isModal">
+                        <form (ngSubmit)="onUpdateUser()">
+                          <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" class="form-control" id="fullname" name="fullname" [(ngModel)]="newUser.fullname" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
+                          </div>
+                           
+                          <div class="form-group">
+                            <label for="expiresAt">Expires At</label>
+                            <input type="date" class="form-control" id="expiresAt" name="expiresAt" [(ngModel)]="newUser.expiresAt" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" id="role" name="role" [(ngModel)]="newUser.role" required>
+                              <option *ngFor="let role of roleOptions" [value]="role">{{ role }}</option>
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Update User</button>
+                        </form>
+                      </p-dialog>
+                      
+
+                               
+
+
+
+ 
+
+
+
+                                <li class="nav-item" ngbNavItem="NewOrder">
+                                    <a class="nav-link" data-toggle="tab" href="#NewOrder" aria-expanded="false" ngbNavLink>
+                                        Test results	
+                                    </a>
+                                    <ng-template ngbNavContent>
+                                        <div class="tab-pane" id="NewOrder">
+                                            <div class="table-responsive rounded table-hover">
+                                                <table class="table text-black card-table dataTable  mb-4 table-responsive-lg dataTablesCard" id="dataTable2">
+                                                    <thead class="bg-primary">
+                                                        <tr>
+                                                            <th>User</th>
+                                                            <th>Test</th>
+                                                            <th>Result</th>
+                                                          </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="alert alert-dismissible border-0"  >
+                                                            <td>Firas yazid</td>
+                                                            <td>Test November</td>
+                                                            <td>75%</td>
+                                                             <td>
+                                                                <a class="btn" href="javascript:void(0);"></a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown dropdown-no-icon" ngbDropdown>
+                                                                    <a class="btn-link" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg>
+                                                                    </a>
+                                                                    <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                                                                        <a class="dropdown-item text-info" href="javascript:void(0);">Accept</a>
+
+
+                                                                       <a href="javascript:void(0);" data-dismiss="alert" aria-label="Close" class="dropdown-item" 
+                                                                           style="color: red;"
+                                                                        >Delete</a>
+                                                                     </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                    </ng-template>
+                                </li>
+                                 
+                              
+                            </ul>
+                        </div>
+
+                        
+                        <mat-form-field appearance="fill" class="style-2 mr-3 mb-3 dashboard-select"
+                         >
+                            <mat-select 
+                            placeholder="Filter"
+                            [(value)]="selectedFilter" (selectionChange)="applyFilter()">
+                               <mat-option value="Date">Filter by expire date</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+
+
+                          <mat-form-field appearance="fill" class="style-2 mb-3 dashboard-select" style="right: 50rem; width: 320px; margin: 10px 0;">
+                            <input matInput placeholder="Enter a name" [(ngModel)]="searchTerm">
+                            <button mat-icon-button matSuffix (click)="search()">
+                              <mat-icon style="color: #000;">search</mat-icon>
+                            </button>
+                          </mat-form-field>
+                          
+
+                          
+                          
+                   
+                       
+                    </div>
+                    
+                    
+                    <div [ngbNavOutlet]="nav" class=""></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->

@@ -1,0 +1,156 @@
+<div class="content-body">
+	<!-- row -->
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-xl-12">
+		  <div class="d-flex flex-wrap mb-3">
+			<a href="javascript:void(0);" data-toggle="modal"  
+                (click)="open(addMedecinModal)"
+            class="btn btn-outline-primary mr-auto mb-2">Add New Test</a>
+  
+<!-- Add Pharmacy Modal -->
+ 
+<ng-template #addMedecinModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Test</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="AddTest(newTest)">
+            <div class="form-group">
+          <label class="text-black font-w500">Test name</label>
+          <input type="text" class="form-control" [(ngModel)]="newTest.name" name="Test name">
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  
+  
+ 
+			<!-- Filter Dropdowns -->
+			<mat-form-field appearance="fill" class="style-2 mr-3 mb-3 dashboard-select">
+			  <mat-select placeholder="Filter">
+				<mat-option value="Filter">Filter</mat-option>
+				<mat-option value="Date">Date</mat-option>
+			  </mat-select>
+			</mat-form-field>
+		 
+		  </div>
+
+
+		  
+		  <div class="table-responsive rounded table-hover">
+			<table class="table text-black card-table dataTable mb-4 table-responsive-lg dataTablesCard" id="dataTable1">
+				<thead>
+				<tr class="bg-primary">
+				 
+				  <th><strong class="font-w600 wspace-no">Test Name</strong></th>
+				  <th><strong class="font-w600 wspace-no">Test takers</strong></th>
+				  <th class="bg-none"></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr class="alert alert-dismissible border-0" *ngFor="let user of Tests | paginate: { itemsPerPage: 5, currentPage: p }">
+				 
+					<td>
+						<a 
+						style="cursor: pointer;"
+
+						(click)="navigateToCategories(user._id || '')"  >
+						  {{ user.name }}
+						</a>
+					  </td>
+									<td>100</td> 
+
+				  <td>
+					<div class="dropdown ml-auto dropdown-no-icon" ngbDropdown display="dynamic">
+					  <div class="btn-link" data-toggle="dropdown" aria-expanded="false" role="button" ngbDropdownToggle>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						  <path d="M11.0005 12C11.0005 12.5523 11.4482 13 12.0005 13C12.5528 13 13.0005 12.5523 13.0005 12C13.0005 11.4477 12.5528 11 12.0005 11C11.4482 11 11.0005 11.4477 11.0005 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						  <path d="M18.0005 12C18.0005 12.5523 18.4482 13 19.0005 13C19.5528 13 20.0005 12.5523 20.0005 12C20.0005 11.4477 19.5528 11 19.0005 11C18.4482 11 18.0005 11.4477 18.0005 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						  <path d="M4.00049 12C4.00049 12.5523 4.4482 13 5.00049 13C5.55277 13 6.00049 12.5523 6.00049 12C6.00049 11.4477 5.55277 11 5.00049 11C4.4482 11 4.00049 11.4477 4.00049 12Z" stroke="#3E4954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					  </div>
+					  <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+						<a class="dropdown-item text-black" href="#">
+						  Edit
+						</a>
+						<a class="dropdown-item text-black" 
+						(click)="deleteConfirmations(user._id || '')"
+ 						>
+						  Delete
+						</a>
+						 
+					  </div>
+					</div>
+				  </td>
+				  
+				</tr>
+			  </tbody>
+			</table>
+			<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+ 		 
+		</div>
+
+
+		<ng-template ngbNavContent>
+			<div class="tab-pane fade active show" id="AllStatus">
+			  <div class="table-responsive rounded table-hover">
+				<table class="table text-black card-table dataTable mb-4 table-responsive-lg dataTablesCard" id="dataTable1">
+				  <thead class="bg-primary">
+									  <tr>
+										<th><strong class="font-w600 wspace-no">Test Name</strong></th>
+										<th><strong class="font-w600 wspace-no">Test takers</strong></th>
+											  <th>Role</th>
+ 						<th style="background-image:none;"></th>
+					  </tr>
+					</thead>
+					<tbody>
+						<tr class="alert alert-dismissible border-0" *ngFor="let user of Tests | paginate: { itemsPerPage: 5, currentPage: p }">
+							<td>
+								<a (click)="navigateToCategories(user._id || '')" class="text-primary cursor-pointer">
+								  {{ user.name }}
+								</a>
+							  </td>
+											<td>100</td> 
+								 <td>
+						  <div class="dropdown dropdown-no-icon" ngbDropdown>
+							<a class="btn-link" href="javascript:void(0)" data-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+							  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								  <rect x="0" y="0" width="24" height="24"></rect>
+								  <circle fill="#000000" cx="12" cy="5" r="2"></circle>
+								  <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+								  <circle fill="#000000" cx="12" cy="19" r="2"></circle>
+								</g>
+							  </svg>                                                      </a>
+							<div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+ 							   <a class="dropdown-item text-black" 
+							   (click)="deleteConfirmations(user._id || '')"
+								>
+								 Delete
+							   </a>							</div>
+						  </div>
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+				</div>
+				
+			  </div>
+			</ng-template>
+
+	</div>
+</div>
+</div>
+</div>
+
+  
